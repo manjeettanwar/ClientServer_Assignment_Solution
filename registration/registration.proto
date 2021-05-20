@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package registry;
+option go_package = "./";
+option java_package = "com.ibm.service";
+
+
+service ServiceRegistration {
+  rpc RegisterService(RegisterServiceRequest) returns (RegisterServiceResponse) {}
+  rpc RemoveService(RemoveServiceRequest) returns (RemoveServiceResponse) {}
+  rpc ListServices(ListServicesRequest) returns (ListServicesResponse) {}
+}
+
+enum ServiceType {
+    SVC_1  = 0;
+    SVC_2  = 1;
+    SVC_3  = 2;
+    MSVC_1 = 10;
+    MSVC_2 = 11;
+}
+
+message Service {
+    string name      = 1;
+    ServiceType type = 2;
+    string host      = 3;
+    int32 port       = 4;
+}
+
+message RegisterServiceRequest {
+    Service service = 1;
+}
+
+message RegisterServiceResponse {
+    int32 id = 1;
+}
+
+message RemoveServiceRequest {
+    string name      = 1;
+    ServiceType type = 2;
+}
+
+message RemoveServiceResponse {
+}
+
+message ListServicesRequest {
+}
+
+message ListServicesResponse {
+    repeated Service servicea = 1;
+}
